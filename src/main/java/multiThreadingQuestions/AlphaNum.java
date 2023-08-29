@@ -1,4 +1,4 @@
-package multiThreading;
+package multiThreadingQuestions;
 
 
 public class AlphaNum {
