@@ -8,13 +8,14 @@ public class ObserverPattern {
     public static void main(String[] args) {
         MobileStockObservable mobileObservable = new MobileStockObservable();
 
-        SMSObserver ob1 = new SMSObserver();
+        SMSObserver ob1 = new SMSObserver(mobileObservable);
         EmailObserver ob2 = new EmailObserver();
 
         mobileObservable.addObserver(ob1);
         mobileObservable.addObserver(ob2);
 
         mobileObservable.setData(10);
+        ob1.stockData();
     }
 }
 
@@ -23,6 +24,7 @@ interface Observable {
     void removeObserver(Observer var1);
     void notifyObservers();
     void setData(int var1);
+    int getData();
 }
 
 class MobileStockObservable implements Observable {
@@ -49,6 +51,8 @@ class MobileStockObservable implements Observable {
         }
         this.mobileStock += newStock;
     }
+
+    public int getData(){ return this.mobileStock; }
 }
 
 
@@ -56,11 +60,21 @@ class MobileStockObservable implements Observable {
 interface Observer {
     void updateData();
 }
+
 class SMSObserver implements Observer {
+    private Observable obj;
+    SMSObserver(Observable o){
+        this.obj = o;
+    }
     public void updateData() {
         System.out.println("SMS sent!");
     }
+
+    public void stockData() {
+        System.out.println("Updated stock = " + this.obj.getData());
+    }
 }
+
 class EmailObserver implements Observer {
     public void updateData() {
         System.out.println("Email sent!");

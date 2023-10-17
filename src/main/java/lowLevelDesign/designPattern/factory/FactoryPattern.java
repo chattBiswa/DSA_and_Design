@@ -2,7 +2,6 @@ package lowLevelDesign.designPattern.factory;
 
 public class FactoryPattern {
     public static void main(String[] args) {
-        new ParkingSlotFactory();
         ParkingSlot mySlot = ParkingSlotFactory.getParkingType(VehicleType.BIKE);
         mySlot.addVehicle();
         mySlot.removeVehicle();
